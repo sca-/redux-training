@@ -1,0 +1,17 @@
+{
+  "name": "redux-lessons",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "less-loader": "^2.2.3",
+    "typescript": "^1.8.10",
+    "webpack": "^1.13.0",
+    "webpack-typescript": "^0.5.6"
+  }
+}
