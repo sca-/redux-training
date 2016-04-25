@@ -61,7 +61,6 @@
 	    document.body.innerHTML = store.getState();
 	};
 	store.subscribe(render);
-	render();
 	document.addEventListener('click', function () {
 	    store.dispatch({ type: 'INC' });
 	});
