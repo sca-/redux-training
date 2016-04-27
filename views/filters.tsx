@@ -1,12 +1,12 @@
 import * as React from 'react';
 
-const FilterLink = ({ filter, children }) => {
+const FilterLink = (props) => {
 	return (
 		<a href='#' onClick={e => {
 			e.preventDefault();
-			this.props.filterChangeHandler(filter);
+			this.props.filterChangeHandler(props.filter);
 		}}>
-		{children}
+		{props.children}
 		</a>);
 };
 

@@ -1,4 +1,4 @@
-const filters = (state:string, action:any): any => {
+const filters = (state:string = '', action:any): any => {
 	switch(action.type) {
 		case 'SET_FILTER':
 			return action.filter;
