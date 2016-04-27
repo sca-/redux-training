@@ -11,4 +11,12 @@ export class Todo {
 	public getText(): string {
 		return this.text;
 	}
+
+	public isCompleted(): boolean {
+		return this.completed;
+	}
+
+	public toggle():void {
+		this.completed = !this.completed;
+	}
 }

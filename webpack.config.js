@@ -1,17 +1,17 @@
 module.exports = {
-	entry: './store.ts',
+	entry: './app.tsx',
 	output: {
-		path: '.',
+		path: './bld',
 		filename: 'x.js',
 	},
 	resolve: {
-		extensions: ['', '.js', '.ts'],
+		extensions: ['', '.js', '.ts', '.tsx'],
 	},
 	module: {
 		loaders: [
 		{ 
-			test: /\.ts/,
-			loader: 'webpack-typescript?target=ES5',
+			test: /\.tsx?$/,
+			loader: 'ts',
 		}
 		],
 	}
