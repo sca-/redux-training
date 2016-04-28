@@ -7,17 +7,17 @@ import Filters from "./views/filters.tsx"
 const appRender = (): void => {
 	render(
 		<Todos 
-			todos={store.getState()}
-			newTodoHandler={(text)=> { store.dispatch({ type: 'ADD_TODO', text: text, id: countr++}) }}
+			todos={store.getState().todos}
+			newTodoHandler={(text, priority)=> { store.dispatch({ type: 'ADD_TODO', text, priority, id: countr++}) }}
 			toggleTodoHandler={(id)=> { store.dispatch({ type: 'TOGGLE_TODO', id: id}) }}
 		/>,
-		document.getElementById('root')
+		document.getElementById('todos')
 	);
 	render(
 		<Filters
 			filterChangeHandler={(filter)=> { store.dispatch({ type: 'SET_FILTER', filter: filter}) }}
 		/>,
-		document.getElementById('root')
+		document.getElementById('filters')
 	);
 };
 
