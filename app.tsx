@@ -1,3 +1,6 @@
+require("!style!css!less!./s.less");
+
+import { Todo } from "./models/todo.ts";
 import * as React from 'react';
 import { render } from 'react-dom';
 import store from './store.ts';
@@ -6,8 +9,9 @@ import Filters from "./views/filters.tsx"
 
 const appRender = (): void => {
 	render(
-		<Todos 
+		<Todos
 			todos={store.getState().todos}
+			priorityOptions={Todo.priorityOptions}
 			newTodoHandler={(text, priority)=> { store.dispatch({ type: 'ADD_TODO', text, priority, id: countr++}) }}
 			toggleTodoHandler={(id)=> { store.dispatch({ type: 'TOGGLE_TODO', id: id}) }}
 		/>,
@@ -25,4 +29,3 @@ var countr: number = 0;
 
 store.subscribe(appRender);
 appRender();
-

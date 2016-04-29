@@ -1,17 +1,38 @@
 import * as React from 'react';
 
 export default class Todos extends React.Component<any, any> {
-	inputText: any;
-	inputPriority: any;
+
+	private _priorityInputOptions: any;
+
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			inputText: '',
+			inputPriority: 'normal',
+		}
+
+		this._priorityInputOptions= this.props.priorityOptions.map((item) => {
+			return <span key={`priority-${item.value}`}>
+					<input 
+						type='radio' 
+						name='priority' 
+						value={item.value} 
+						defaultChecked={item.isDefault}
+						onChange={(e) => { this.setState({ inputPriority: e.target.value }) } } />
+					{item.name}
+				</span>;
+		});
+	}
 
 	validateNewTodo(): boolean {
-		return this.inputText.value != '';
+		return this.state.inputText != '';
 	}
 
 	addNewTodo(): void {
 		if (this.validateNewTodo()) {
-			this.props.newTodoHandler(this.inputText.value, this.inputPriority.checked ? this.inputPriority.value : '');
-			this.inputText.value = '';
+			this.props.newTodoHandler(this.state.inputText, this.state.inputPriority);
+			this.setState({ inputText: '' });
 		}
 	}
 
@@ -22,23 +43,25 @@ export default class Todos extends React.Component<any, any> {
 	render() {
 		return (
 			<div>
-				<input 
-					ref={node => {
-						this.inputText = node;
+				<input
+					value={this.state.inputText}
+					onChange={(e) => {
+						let el = e.currentTarget as HTMLInputElement;
+						this.setState({ inputText: el.value });
 					}}
 					onKeyDown={(e) => {
-						if (e.keyCode == 13) {
+						let keyCode = e.keyCode || e.which;
+						if (keyCode == 13) {
 							this.addNewTodo();
 						}
 					}}
 				/>
-				<input type='radio' name='priority' value='normal'/>
-				Нормальный приоритет
-				<input type='radio' ref={node => { this.inputPriority = node; }} name='priority' value='major'/>
-				Высокий приоритет
 				<button onClick={() => {this.addNewTodo()}}>
 					Добавить тудушку
 				</button>
+				<div>
+					{this._priorityInputOptions}
+				</div>
 				<ul>
 					{this.props.todos.map(todo =>
 						<li key={todo.getId()}
@@ -49,7 +72,7 @@ export default class Todos extends React.Component<any, any> {
 								textDecoration:
 									todo.isCompleted() ? 'line-through' : 'none',
 								color:
-									todo.isMajor() ? 'red' : 'black'
+									todo.isMajor() ? 'red' : (todo.isMinor() ? 'blue' : 'black')
 							}}
 						>
 							{todo.getText()}

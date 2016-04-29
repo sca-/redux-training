@@ -1,4 +1,21 @@
 export class Todo implements ITodo {
+
+	static priorityOptions:any = [
+		{
+			value: 'normal',
+			name: 'Нормальный',
+			isDefault: true
+		},
+		{
+			value: 'major',
+			name: 'Высокий'
+		},
+		{
+			value: 'minor',
+			name: 'Низкий'
+		}
+	];
+
 	private _text: string;
 	private _id: number;
 	private _completed: boolean;
@@ -29,5 +46,9 @@ export class Todo implements ITodo {
 
 	public isMajor():boolean {
 		return this._priority == 'major';
+	}
+
+	public isMinor():boolean {
+		return this._priority == 'minor';
 	}
 }
