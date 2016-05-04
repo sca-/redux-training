@@ -9,7 +9,7 @@ export default class Todos extends React.Component<any, any> {
 
 		this.state = {
 			inputText: '',
-			inputPriority: 'normal',
+			inputPriority: 'NORMAL',
 		}
 
 		this._priorityInputOptions= this.props.priorityOptions.map((item) => {
