@@ -13,15 +13,16 @@ export default class Todos extends React.Component<any, any> {
 		}
 
 		this._priorityInputOptions= this.props.priorityOptions.map((item) => {
-			return <span key={`priority-${item.value}`}>
+			return <div className='priority-item' key={`priority-${item.value}`}>
 					<input 
 						type='radio' 
+						id={`priority-${item.value}`}
 						name='priority' 
 						value={item.value} 
 						defaultChecked={item.isDefault}
-						onChange={(e) => { this.setState({ inputPriority: e.target.value }) } } />
-					{item.name}
-				</span>;
+						onChange={(e) => { this.setState({ inputPriority: (e.target as HTMLInputElement).value }) } } />
+					<label htmlFor={`priority-${item.value}`}>{item.name}</label>
+				</div>;
 		});
 	}
 
@@ -44,6 +45,7 @@ export default class Todos extends React.Component<any, any> {
 		return (
 			<div>
 				<input
+					type='text'
 					value={this.state.inputText}
 					onChange={(e) => {
 						let el = e.currentTarget as HTMLInputElement;

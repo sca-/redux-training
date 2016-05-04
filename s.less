@@ -1,3 +1,37 @@
 body {
 	background-color: #eee;
 }
+
+#root {
+	width:60%;
+	margin-left: 20%;
+}
+
+input[type=text] {
+	padding: 13px 32px;
+	margin-right: 5px;
+}
+
+button {
+	background-color: #4caf50;
+	color: white;
+	border: none;
+	padding: 15px 32px;
+}
+
+input[type=radio] {
+	position: absolute;
+	visibility: hidden;
+	&:checked {
+		&+ label {
+			border-bottom: 2px solid black;
+		}
+	}
+}
+
+label {
+	line-height: 30px;
+	text-transform: uppercase;
+	cursor: pointer;
+	border-bottom: 1px dashed black;
+}
