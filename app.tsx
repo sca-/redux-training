@@ -1,11 +1,22 @@
 require("!style!css!less!./s.less");
 
-import { Todo } from "./models/todo.ts";
+// actions
+import * as TodoActions from './actions/todos';
+import * as FilterActions from './actions/filters';
+
+// models
+import { Todo } from './models/todo';
+
+// react
 import * as React from 'react';
 import { render } from 'react-dom';
+
+// store
 import store from './store.ts';
-import Todos from "./views/todos.tsx"
-import Filters from "./views/filters.tsx"
+
+// views
+import Todos from './views/todos';
+import Filters from './views/filters';
 
 const visibleTodos = (): Todo[] => {
 	let state: any = store.getState(),
@@ -30,22 +41,20 @@ const appRender = (): void => {
 		<Todos
 			todos={visibleTodos()}
 			priorityOptions={Todo.priorityOptions}
-			newTodoHandler={(text, priority)=> { store.dispatch({ type: 'ADD_TODO', text, priority, id: countr++}) }}
-			toggleTodoHandler={(id)=> { store.dispatch({ type: 'TOGGLE_TODO', id: id}) }}
+			newTodoHandler={(text, priority)=> { TodoActions.addTodo(store.dispatch, text, priority) }}
+			toggleTodoHandler={(id)=> { TodoActions.toggleTodo(store.dispatch, id) }}
 		/>,
 		document.getElementById('todos')
 	);
 	render(
 		<Filters
-			filterChangeHandler={(filter, value)=> { store.dispatch({ type: 'SET_FILTER', filter: filter, value: value}) }}
-			filterClearHandler={()=> { store.dispatch({ type: 'RESET_FILTERS' }) }}
+			filterChangeHandler={(filter, value)=> { FilterActions.setFilter(store.dispatch, filter, value) }}
+			filterClearHandler={()=> { FilterActions.resetFilters(store.dispatch) }}
 			activeFilters={store.getState().filters}
 		/>,
 		document.getElementById('filters')
 	);
 };
-
-var countr: number = 0;
 
 store.subscribe(appRender);
 appRender();
