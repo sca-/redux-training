@@ -18,16 +18,8 @@ const visibleTodos = (): Todo[] => {
 			todos = todos.filter(item => !item.isCompleted());
 			break;
 	}
-	switch(state.filters.priority) {
-		case 'NORMAL':
-			todos = todos.filter(item => !item.isMajor() && !item.isMinor());
-			break;
-		case 'MAJOR':
-			todos = todos.filter(item => item.isMajor());
-			break;
-		case 'MINOR':
-			todos = todos.filter(item => item.isMinor());
-			break;
+	if (state.filters.priority != 'ALL') {
+		todos = todos.filter(item => item.getPriority() == state.filters.priority);
 	}
 
 	return todos;
@@ -47,6 +39,7 @@ const appRender = (): void => {
 		<Filters
 			filterChangeHandler={(filter, value)=> { store.dispatch({ type: 'SET_FILTER', filter: filter, value: value}) }}
 			filterClearHandler={()=> { store.dispatch({ type: 'RESET_FILTERS' }) }}
+			activeFilters={store.getState().filters}
 		/>,
 		document.getElementById('filters')
 	);

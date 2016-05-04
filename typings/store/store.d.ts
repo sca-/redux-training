@@ -8,9 +8,14 @@ interface ITodo {
 	isMajor: () => boolean;
 }
 
+interface IFilters {
+	done: string;
+	priority: string;
+}
+
 interface IState {
 	todos: ITodo[];
-	filter: string;
+	filters: IFilters;
 }
 
 interface IStore extends Redux.Store {
