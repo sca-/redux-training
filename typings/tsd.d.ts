@@ -3,3 +3,4 @@
 /// <reference path="store/store.d.ts" />
 /// <reference path="redux/redux.d.ts" />
 /// <reference path="require/require.d.ts" />
+/// <reference path="general/window.d.ts" />
